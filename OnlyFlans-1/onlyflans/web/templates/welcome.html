@@ -14,8 +14,10 @@
     {%include 'navbar.html'%}
     {% endblock %}
 <div class="container">
-        <h1>¡Bienvenido/a {{request.session.name}}!</h1> <!--mostrar en el frontend el nombre del usuario desde la base de datos-->
+        {% if user.is_authenticated %}
+        <h1>¡Bienvenido/a {{ user.get_username }}!</h1> <!--mostrar en el frontend el nombre del usuario desde la base de datos-->
         <img src="{% static 'img/OnlyFlans.png'%}" alt="logo" width="50%">
+        {%endif%}
     <div>
 
 <div class="container">

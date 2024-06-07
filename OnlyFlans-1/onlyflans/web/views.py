@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect
 from . import models
 from web.models import Flan, ContactForm
-from .forms import ContactFormForm
+from .forms import ContactFormForm, LoginForm
+from django.contrib.auth.decorators import login_required
+
+
 #from django.http import HttpResponseRedirect
 
 # from .forms import ContactFormModelForm
@@ -19,6 +22,7 @@ def index(request):
 def about(request):
     return render(request, 'about.html', {})
 
+@login_required
 def welcome(request):
     #request.session['name',] #capturar nombre de usuario
     flanes_privados = Flan.objects.filter(is_private=True)
@@ -57,7 +61,18 @@ def contact(request):
 def success(request):
     return render(request, 'success.html') 
 
-
+def login(request):
+    if request.method == 'GET':
+        return render(request, 'login.html')
+    #validar metodo post
+    if request.method == 'POST':
+        form = LoginForm(request.POST) #se le pasa todo el post y como es un form, captura solo 
+        if form.is_valid(): #si el form esta bien
+            #se inserta
+            LoginForm.objects.create(**form.cleaned_data) #se hace una insercion con los datos del form, limpios.
+            
+        return redirect('welcome')
+    
 
 
 

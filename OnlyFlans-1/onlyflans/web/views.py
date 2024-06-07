@@ -1,7 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.contrib import messages
 from . import models
-from web.models import Flan, ContactForm
+from web.models import Flan
+from .forms import ContactFormForm
+from django.http import HttpResponseRedirect
+from web.models import ContactForm
+
 
 # from .forms import ContactFormModelForm
 # from .forms import CustomUserCreationForm
@@ -35,21 +39,22 @@ def lista_flanes(request):
     context = {'Flan':todos_flanes}
     return render(request,'flan.html',context=context)
 
-
+#
 def contact(request):
     if request.method == 'POST':
-        form = ContactForm(request.POST)
+        form = ContactFormForm(request.POST)
         if form.is_valid():
             email = form.cleaned_data['email']
             name = form.cleaned_data['name']
             message = form.cleaned_data['message']
 
             messages.success(request, 'El mensaje se ha enviado correctamente.')
-            return redirect('success')
-        else:
-            messages.error(request, 'Por favor, corrige los errores en el formulario.')
+            #return redirect('success')--NO va directo, debe pasar por HttpResponseRedirect
+            return HttpResponseRedirect('/success')
+        # else:
+        #     messages.error(request, 'Por favor, corrige los errores en el formulario.')
     else:
-        form = ContactForm()
+        form = ContactFormForm()
 
     return render(request, 'contact.html', {'form': form})
 

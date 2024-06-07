@@ -4,6 +4,7 @@ import uuid
 
 
 
+
 # Create your models here.
 class Cliente(models.Model):
     

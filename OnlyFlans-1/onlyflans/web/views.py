@@ -1,11 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from . import models
 from web.models import Flan, ContactForm
 from .forms import ContactFormForm
-from django.http import HttpResponseRedirect
-
-
-
+#from django.http import HttpResponseRedirect
 
 # from .forms import ContactFormModelForm
 # from .forms import CustomUserCreationForm
@@ -49,15 +46,18 @@ def contact(request):
             #guardado de la información en la base de datos
             contact_form = ContactForm.objects.create(**form.cleaned_data)
             # redirección del metodo
-            return HttpResponseRedirect('/success')
+            #return HttpResponseRedirect('/success')
+            return redirect('/success')
 
     else: 
         # redirección del metodo
         form = ContactFormForm()
-            
     return render(request,'contact.html',{'form':form})
 
 def success(request):
-    return render(request, 'success.html')
+    return render(request, 'success.html') 
+
+
+
 
 

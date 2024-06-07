@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from web import views
-from web.views import index, about, welcome, contact, success 
+from web.views import index, about, welcome, contact, success
 
 
 

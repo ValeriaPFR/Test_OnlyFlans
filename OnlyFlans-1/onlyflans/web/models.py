@@ -42,11 +42,12 @@ class Flan(models.Model):
     
 class ContactForm(models.Model):
     contact_form_uuid = models.UUIDField(default=uuid.uuid4, editable=False) 
-    email = models.EmailField()
-    name = models.CharField(max_length=64)
+    customer_email = models.EmailField()
+    customer_name = models.CharField(max_length=64)
     message = models.TextField()
-    
-    #created_at
+    #revisar en la base de datos
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     
 
     def __str__(self):

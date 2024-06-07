@@ -17,5 +17,5 @@ class FlanAdmin(admin.ModelAdmin):
 
 @admin.register(ContactForm)
 class ContactFormAdmin(admin.ModelAdmin):
-    list_display = ('email', 'name', 'message')
+    list_display = ('customer_email', 'customer_name', 'message')
     

@@ -26,6 +26,7 @@
 
                     {% if user.is_authenticated %}
                         Hola,  <strong>{{ user.get_username }}  </strong>
+                        {% csrf_token %}
                         <a href="{% url 'logout'%}?next={{request.path}}">Cerrar sesión</a>
                     {% else %}
                         <a href="{% url 'login'%}">Iniciar sesión</a>

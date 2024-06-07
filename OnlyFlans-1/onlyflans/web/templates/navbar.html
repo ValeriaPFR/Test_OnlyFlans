@@ -14,11 +14,15 @@
                         <a class="nav-link active" aria-current="page" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="welcome">Welcome</a>
+                        <a class="nav-link active" aria-current="page" href="{% url 'welcome'%}">Welcome</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="about">About</a>
+                        <a class="nav-link active" aria-current="page" href="{% url 'about'%}">About</a>
                     </li>
+                    <a class="nav-link active" aria-current="page" href="{% url 'login'%}">Login</a>
+                </li>
+                <a class="nav-link active" aria-current="page" href="{% url 'logout'%}">Logout</a>
+                </li>
                     
                 </ul>
                 

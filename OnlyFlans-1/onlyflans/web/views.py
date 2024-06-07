@@ -1,16 +1,16 @@
 from django.shortcuts import render
-from django.contrib import messages
 from . import models
-from web.models import Flan
+from web.models import Flan, ContactForm
 from .forms import ContactFormForm
 from django.http import HttpResponseRedirect
-from web.models import ContactForm
+
+
 
 
 # from .forms import ContactFormModelForm
 # from .forms import CustomUserCreationForm
 # from django.contrib.auth import authenticate
-# from .models import ContactForm
+#from .models import ContactForm
 
 
 # Create your views here.
@@ -41,22 +41,21 @@ def lista_flanes(request):
 
 #
 def contact(request):
+    #validar metodo post
     if request.method == 'POST':
         form = ContactFormForm(request.POST)
+        #validar información correcta
         if form.is_valid():
-            email = form.cleaned_data['email']
-            name = form.cleaned_data['name']
-            message = form.cleaned_data['message']
-
-            messages.success(request, 'El mensaje se ha enviado correctamente.')
-            #return redirect('success')--NO va directo, debe pasar por HttpResponseRedirect
+            #guardado de la información en la base de datos
+            contact_form = ContactForm.objects.create(**form.cleaned_data)
+            # redirección del metodo
             return HttpResponseRedirect('/success')
-        # else:
-        #     messages.error(request, 'Por favor, corrige los errores en el formulario.')
-    else:
-        form = ContactFormForm()
 
-    return render(request, 'contact.html', {'form': form})
+    else: 
+        # redirección del metodo
+        form = ContactFormForm()
+            
+    return render(request,'contact.html',{'form':form})
 
 def success(request):
     return render(request, 'success.html')

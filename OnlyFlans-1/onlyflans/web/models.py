@@ -45,6 +45,9 @@ class ContactForm(models.Model):
     email = models.EmailField()
     name = models.CharField(max_length=64)
     message = models.TextField()
+    
+    #created_at
+    
 
     def __str__(self):
         return f"{self.customer_email} - Mensaje: {self.message}"

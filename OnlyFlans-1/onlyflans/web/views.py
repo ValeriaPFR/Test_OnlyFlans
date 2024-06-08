@@ -73,6 +73,9 @@ def login(request):
             
         return redirect('welcome')
     
+def logout(rewquest):
+    return redirect('logout')
+    
 
 
 

@@ -1,0 +1,44 @@
+    {% load static %}
+
+        <nav class="navbar navbar-expand-lg bg-body-tertiary "> <!-- fixed-top se agrega dentro-->
+            <div class="container-fluid" style="background-color: #e3f2fd;">
+            <a class="navbar-brand" href="/">
+                <img src="{% static 'img/OnlyFlans.png'%}" alt="logo" width="65">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'welcome'%}">Welcome</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'about'%}">About</a>
+                    </li>
+                    <a class="nav-link active" aria-current="page" href="{% url 'login'%}">Login</a>
+                </li>
+                <a class="nav-link active" aria-current="page" href="{% url 'logout'%}">Logout</a>
+                    </li>
+                    
+                </ul>
+                
+                <class="nav-item ">                  
+
+                    {% if user.is_authenticated %}
+                        Hola,  <strong>{{ user.get_username }}  </strong>
+                        {% csrf_token %}
+                        <a href="{% url 'logout'%}?next={{request.path}}">Cerrar sesión</a>
+                    {% else %}
+                        <a href="{% url 'login'%}">Iniciar sesión</a>
+                    {% endif %}
+                    
+                    </a>
+                        
+                
+            </div>
+            </div>
+        </nav>

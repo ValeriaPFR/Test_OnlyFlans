@@ -3,6 +3,10 @@ from . import models
 from web.models import Flan, ContactForm
 from .forms import ContactFormForm, LoginForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
+
+
 
 
 #from django.http import HttpResponseRedirect
@@ -61,21 +65,38 @@ def contact(request):
 def success(request):
     return render(request, 'success.html') 
 
-def login(request):
-    if request.method == 'GET':
-        return render(request, 'login.html')
-    #validar metodo post
-    if request.method == 'POST':
-        form = LoginForm(request.POST) #se le pasa todo el post y como es un form, captura solo 
-        if form.is_valid(): #si el form esta bien
-            #se inserta
-            LoginForm.objects.create(**form.cleaned_data) #se hace una insercion con los datos del form, limpios.
+# def login(request):
+#     if request.method == 'GET':
+#         return render(request, 'login.html')
+#     #validar metodo post
+#     if request.method == 'POST':
+#         form = LoginForm(request.POST) #se le pasa todo el post y como es un form, captura solo 
+#         if form.is_valid(): #si el form esta bien
+#             #se inserta
+#             LoginForm.objects.create(**form.cleaned_data) #se hace una insercion con los datos del form, limpios.
             
-        return redirect('welcome')
+#         return redirect('welcome')
     
-def logout(rewquest):
-    return redirect('logout')
-    
+# def logout(rewquest):
+#     return redirect('logout')
 
+def user_login(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('home')  # Redirige a la página de inicio o a donde prefieras
+            else:
+                messages.error(request, 'Invalid username or password.')
+    else:
+        form = LoginForm()
+    return render(request, 'login.html', {'form': form})
 
-
+@login_required
+def some_protected_view(request):
+    # Código para una vista que requiere que el usuario esté autenticado
+    return render(request, 'welcome.html')

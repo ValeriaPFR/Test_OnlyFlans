@@ -31,6 +31,7 @@ urlpatterns = [
     path('flan/', views.lista_flanes, name='lista_flanes'),
     path('contact/', contact, name='contact'),
     path('success/', success, name='success'),
+    path('login/', user_login, name='login'),
     path('accounts/', include('django.contrib.auth.urls')),
     #path('login', login, name='login') #no va pq se ocupa el de accounts
     

@@ -24,12 +24,16 @@ urlpatterns = [
     path('', views.index, name='home'),
     path('about/', views.about, name='about'),
     path('welcome/', views.welcome, name='welcome'),
-    path('list/', views.customer, name='customer'),
+    path('client/', views.Client, name='client'),
     path('flan/', views.flan_list, name='flan_list'),
     path('contact/', views.contact, name='contact'),
     path('success/', views.success, name='success'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('', include('web.urls')),
+    path('registration/', views.registration_view, name='registration_view'),
+    path('registration/', views.registration_view, name='registration_form'),
+    path('new_client/', views.new_client_view, name='new_client'),
+    path('welcome/', views.welcome, name='welcome'),
     #path('admin/', include('jazzmin.urls')),  
 ]
 

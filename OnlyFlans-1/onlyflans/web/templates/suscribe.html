@@ -3,24 +3,9 @@
     <div class="position-relative">
         <h1 class="display-3 fw-bold text-light">Suscríbete</h1>
         <div class="col-lg-6 mx-auto">
-            <p class="fs-5 mb-4 text-light">Nuestro clientes disfrutan de beneficios inigualables, despacho gratis, sabores innovadores y regalos especiales durante todo el mes de su cumpleaños.</p>
-            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-                <form class="p-4 border rounded-3 bg-body-tertiary border-primary" style="max-width: 400px;">
-                    <div class="row mb-3">
-                        <div class="col">
-                            <input type="email" class="form-control border rounded-3 bg-body-tertiary border-primary" id="floatingInput" placeholder="email@example.com">
-                        </div>
-                        <div class="col-auto d-flex align-items-end">
-                            <div class="checkbox mb-3">
-                                <label>
-                                    <input type="checkbox" value="remember-me"> Recuérdame
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="w-100 btn btn-lg btn-primary" type="submit">Suscribirse</button>
-                </form>
-            </div>
+            <p class="fs-5 mb-4 text-light">Nuestros clientes disfrutan de beneficios inigualables, envío gratis, sabores innovadores y regalos especiales durante todo el mes de su cumpleaños.</p>
+            <a href="{% url 'registration_view' %}">
+            <button type="submit" class="w-100 btn btn-primary btn-lg">Suscribirse</button>
         </div>
     </div>
 </div>

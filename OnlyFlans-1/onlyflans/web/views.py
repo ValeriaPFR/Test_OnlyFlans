@@ -5,7 +5,8 @@ from django.contrib import messages
 from .models import Flan, ContactForm
 from .forms import ContactFormForm, LoginForm, ClientForm
 from django.contrib.auth.forms import AuthenticationForm
-
+from django.contrib.auth.models import Group
+from .models import Client
 
 def index(request):
     flanes_publicos = Flan.objects.filter(is_private=False)
@@ -16,15 +17,29 @@ def about(request):
 
 @login_required
 def welcome(request):
-    #request.session['name',] #capturar nombre de usuario
-    private_flan = Flan.objects.filter(is_private=True)
-    return render(request, 'welcome.html', {'flan_list': private_flan}) # Obtener los flanes privados
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('welcome') 
+        else:
+            messages.error(request, 'Nombre de usuario o contraseña incorrectos.')
+            return render(request, 'index.html')
+    else:
+        #request.session['name',] #capturar nombre de usuario
+        private_flan = Flan.objects.filter(is_private=True)
+        return render(request, 'welcome.html', {'flan_list': private_flan}) # Obtener los flanes privados
 
-def customer(request):
-    all_customer = models.Customer.objects.all() 
-    context = {'customer':all_customer}
-    return render(request,'customer.html',context=context)
-
+def add_group_client(request, cliente_id):
+    client = Client.objects.get(pk=name)
+    group = Group.objects.get(name="Cliente")
+    
+    # Agregar el cliente al grupo
+    cliente.groups.add(grupo)
+    
+    return HttpResponse("Cliente agregado al grupo exitosamente")
 
 def flan_list(request):
     all_flan = models.Flan.objects.all() 
@@ -37,10 +52,13 @@ def registration_view(request):
         form = ClientForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('new_client')  # Redirigir a una página de éxito
+            return redirect('new_client') 
     else:
         form = ClientForm()
     return render(request, 'registration_form.html', {'form': form})
+
+def new_client_view(request):
+    return render(request, 'registration/new_client.html')
 
 def contact(request):
     if request.method == 'POST':
@@ -68,7 +86,7 @@ def user_login(request):
                 return redirect('welcome')
     else:
         form = AuthenticationForm()
-    return render(request, 'failed_login.html', {'form': form})
+    return render(request, 'welcome.html', {'form': form})
 
 def user_logout(request):
     logout(request)

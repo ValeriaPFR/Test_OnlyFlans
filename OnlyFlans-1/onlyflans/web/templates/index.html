@@ -27,23 +27,30 @@
         
     <div>
 
-    <div class="container">
-        <h1 class="mt-5">Flanes Públicos</h1>
-        <div class="row">
-            {% for flan in lista_flanes %}
-            <div class="col-sm-3 mb-3 mb-sm-0">
-                <div class="card">
-                    <img class="card-img-top" src="{{flan.img_url}}" alt="{{ flan.name }}">
+        <div class="container">
+            <h1 class="mt-5">Flanes Públicos</h1>
+            <div class="row">
+                {% for flan in lista_flanes %}
+                <div class="col-sm-3 mb-3">
+                    <div class="card h-100">
+                        <img class="card-img-top" src="{{ flan.img_url }}" alt="{{ flan.name }}" style="object-fit: cover; height: 200px;">
                         <div class="card-body">
                             <h5 class="card-title">{{ flan.name }}</h5>
                             <p class="card-text">{{ flan.description }}</p>
-                            <!--<a href="#" class="btn btn-primary">¡Lo quiero!</a>--> <!--(Para comprar)-->
                         </div>
+                        <div class="card-footer d-flex justify-content-center">
+                            <a href="#" class="btn btn-primary">
+                                <img src="{% static 'img/carrito.png' %}" alt="carrito" width="20" height="20">
+                                ¡Compra Ahora!
+                            </a>
+                        </div>
+                    </div>
                 </div>
+                {% endfor %}
             </div>
-            {% endfor %}
         </div>
-    </div>
+        
+        
 
     {%block 'suscribe'%}
     {%include 'suscribe.html' %}

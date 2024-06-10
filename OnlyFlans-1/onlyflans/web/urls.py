@@ -11,8 +11,8 @@ urlpatterns = [
     path('login/', views.user_login, name='login'),
     path('welcome/', views.welcome, name='welcome'),
     path('logout/', views.user_logout, name='logout'),
-    path('list/', views.customer, name='customer'),
-    path('flan/', views.flan_list, name='flan_list'),
-    path('register/', registration_view, name='registration_view'),
-    path('new_client/', TemplateView.as_view(template_name="new_client.html"), name='success_view'),
+    path('client/', views.Client, name='client'),
+    path('register/', registration_view, name='registration_form'),
+    path('new_client/', views.new_client_view, name='new_client'),
+    path('welcome/', views.welcome, name='welcome'),
 ]

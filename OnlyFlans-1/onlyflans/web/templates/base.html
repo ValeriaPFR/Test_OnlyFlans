@@ -12,14 +12,16 @@
 <body>
 
     {% block navbar %}
-        {% include 'navbar.html' %}
+    {% if show_navbar %}
+    {% endif %}
     {% endblock %}
 
     <div class="container background-opacity my-3">
         {% block content %}{% endblock %}
         {% block carrousel %}
-            {% include 'carrousel.html' %}
-        {% endblock %}
+    {% if show_carrousel %}
+    {% endif %}
+    {% endblock %}
     </div>
 
     {% block footer %}

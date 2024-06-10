@@ -4,16 +4,17 @@ import uuid
 
 # Create your models here.
 class Client(models.Model):
-    
     name = models.CharField(max_length=30)
     lastname = models.CharField(max_length=30)
     email = models.EmailField(max_length=50, default="cliente@cliente.cl") 
     age= models.IntegerField(validators=[MinValueValidator(0),MaxValueValidator(120)],default=18)
     subject = models.CharField(max_length=200, default="")
-    message = models.TextField(max_length=1000, default="") 
+    message = models.TextField(max_length=1000, default="")
+    birth_date = models.DateField()
+    address = models.CharField(max_length=255)
+    password = models.CharField(max_length=128, default="defaultpassword") #agregamos campo de password
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    
     def __str__(self):
         return f"{self.name} {self.lastname}"
     

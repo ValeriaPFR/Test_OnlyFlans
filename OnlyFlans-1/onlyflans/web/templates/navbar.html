@@ -1,44 +1,36 @@
-    {% load static %}
-
-        <nav class="navbar navbar-expand-lg bg-body-tertiary "> <!-- fixed-top se agrega dentro-->
-            <div class="container-fluid" style="background-color: #e3f2fd;">
-            <a class="navbar-brand" href="/">
-                <img src="{% static 'img/OnlyFlans.png'%}" alt="logo" width="65">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'welcome'%}">Welcome</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'about'%}">About</a>
-                    </li>
-                    <a class="nav-link active" aria-current="page" href="{% url 'login'%}">Login</a>
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'index' %}">OnlyFlans</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'index' %}">Home</a>
                 </li>
-                <a class="nav-link active" aria-current="page" href="{% url 'logout'%}">Logout</a>
-                    </li>
-                    
-                </ul>
-                
-                <class="nav-item ">                  
-
-                    {% if user.is_authenticated %}
-                        Hola,  <strong>{{ user.get_username }}  </strong>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'about' %}">About</a>
+                </li>
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'welcome' %}">Welcome</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <form method="POST" action="{% url 'login' %}" class="d-flex">
                         {% csrf_token %}
-                        <a href="{% url 'logout'%}?next={{request.path}}">Cerrar sesión</a>
-                    {% else %}
-                        <a href="{% url 'login'%}">Iniciar sesión</a>
-                    {% endif %}
-                    
-                    </a>
-                        
-                
-            </div>
-            </div>
-        </nav>
+                        <input type="text" name="username" placeholder="Username" class="form-control me-2">
+                        <input type="password" name="password" placeholder="Password" class="form-control me-2">
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </form>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

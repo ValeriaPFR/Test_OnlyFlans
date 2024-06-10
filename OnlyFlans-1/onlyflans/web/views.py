@@ -1,23 +1,11 @@
 from django.shortcuts import render, redirect
-from . import models
-from web.models import Flan, ContactForm
-from .forms import ContactFormForm, LoginForm
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from .models import Flan, ContactForm
+from .forms import ContactFormForm, LoginForm, ClientForm
+from django.contrib.auth.forms import AuthenticationForm
 
-
-
-
-#from django.http import HttpResponseRedirect
-
-# from .forms import ContactFormModelForm
-# from .forms import CustomUserCreationForm
-# from django.contrib.auth import authenticate
-#from .models import ContactForm
-
-
-# Create your views here.
 
 def index(request):
     flanes_publicos = Flan.objects.filter(is_private=False)
@@ -30,73 +18,58 @@ def about(request):
 def welcome(request):
     #request.session['name',] #capturar nombre de usuario
     flanes_privados = Flan.objects.filter(is_private=True)
-    return render(request, 'welcome.html', {'lista_flanes': flanes_privados}) # Obtener los flanes privados
+    return render(request, 'welcome.html', {'flan_list': flanes_privados}) # Obtener los flanes privados
 
-def lista_clientes(request):
-    todos_clientes = models.Cliente.objects.all() 
-    context = {'clientes':todos_clientes}
-    return render(request,'list.html',context=context)
+def customer(request):
+    all_customer = models.Customer.objects.all() 
+    context = {'clientes':all_customer}
+    return render(request,'customer.html',context=context)
 
 
-def lista_flanes(request):
-
-    todos_flanes = models.Flan.objects.all() 
-    context = {'Flan':todos_flanes}
+def flan_list(request):
+    all_flan = models.Flan.objects.all() 
+    context = {'Flan':all_flan}
     return render(request,'flan.html',context=context)
 
-#
+
+def registration_view(request):
+    if request.method == 'POST':
+        form = ClientForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('new_client')  # Redirigir a una página de éxito
+    else:
+        form = ClientForm()
+    return render(request, 'registration_form.html', {'form': form})
+
 def contact(request):
-    #validar metodo post
     if request.method == 'POST':
         form = ContactFormForm(request.POST)
-        #validar información correcta
         if form.is_valid():
-            #guardado de la información en la base de datos
-            contact_form = ContactForm.objects.create(**form.cleaned_data)
-            # redirección del metodo
-            #return HttpResponseRedirect('/success')
-            return redirect('/success')
-
-    else: 
-        # redirección del metodo
+            ContactForm.objects.create(**form.cleaned_data)
+            return redirect('success')
+    else:
         form = ContactFormForm()
-    return render(request,'contact.html',{'form':form})
+    return render(request, 'contact.html', {'form': form})
 
 def success(request):
-    return render(request, 'success.html') 
-
-# def login(request):
-#     if request.method == 'GET':
-#         return render(request, 'login.html')
-#     #validar metodo post
-#     if request.method == 'POST':
-#         form = LoginForm(request.POST) #se le pasa todo el post y como es un form, captura solo 
-#         if form.is_valid(): #si el form esta bien
-#             #se inserta
-#             LoginForm.objects.create(**form.cleaned_data) #se hace una insercion con los datos del form, limpios.
-            
-#         return redirect('welcome')
-    
-# def logout(rewquest):
-#     return redirect('logout')
+    return render(request, 'success.html')
 
 def user_login(request):
     if request.method == 'POST':
-        form = LoginForm(request.POST)
+        form = AuthenticationForm(request, request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
-            user = authenticate(request, username=username, password=password)
+            user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('home')  # Redirige a la página de inicio o a donde prefieras
-            else:
-                messages.error(request, 'Invalid username or password.')
+                # Redirige a la página adecuada después del inicio de sesión exitoso
+                return redirect('welcome')
     else:
-        form = LoginForm()
-    return render(request, 'login.html', {'form': form})
+        form = AuthenticationForm()
+    return render(request, 'failed_login.html', {'form': form})
 
-@login_required
-def some_protected_view(request):
-    # Código para una vista que requiere que el usuario esté autenticado
-    return render(request, 'welcome.html')
+def user_logout(request):
+    logout(request)
+    return redirect('index')  # o cualquier otra página a la que quieras redirigir después del logout

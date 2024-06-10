@@ -91,10 +91,14 @@ def user_login(request):
                 login(request, user)
                 return redirect('home')  # Redirige a la página de inicio o a donde prefieras
             else:
-                messages.error(request, 'Invalid username or password.')
+                messages.error(request, 'Nombre de usuario o contraseña incorrectos.')
+                return redirect('login_failed')  # Redirige a la vista de login fallido
     else:
         form = LoginForm()
     return render(request, 'login.html', {'form': form})
+
+def login_failed(request):
+    return render(request, 'web/login_failed.html')
 
 @login_required
 def some_protected_view(request):

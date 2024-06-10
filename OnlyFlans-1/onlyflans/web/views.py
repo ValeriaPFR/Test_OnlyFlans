@@ -17,12 +17,12 @@ def about(request):
 @login_required
 def welcome(request):
     #request.session['name',] #capturar nombre de usuario
-    flanes_privados = Flan.objects.filter(is_private=True)
-    return render(request, 'welcome.html', {'flan_list': flanes_privados}) # Obtener los flanes privados
+    private_flan = Flan.objects.filter(is_private=True)
+    return render(request, 'welcome.html', {'flan_list': private_flan}) # Obtener los flanes privados
 
 def customer(request):
     all_customer = models.Customer.objects.all() 
-    context = {'clientes':all_customer}
+    context = {'customer':all_customer}
     return render(request,'customer.html',context=context)
 
 

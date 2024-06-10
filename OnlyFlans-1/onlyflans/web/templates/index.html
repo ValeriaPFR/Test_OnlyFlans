@@ -22,26 +22,10 @@
     {% endblock %}
 
     <div class="container">
-        <h1>¡Bienvenido/a {{ user.get_username }} !</h1>
-        <img src="{% static 'img/OnlyFlans.png'%}" alt="logo" width="50%">
+        <img src="{% static 'img/OnlyFlans.png'%}" alt="logo" width="18%">
+        <h2 class="text-primary">¡Bienvenido/a {{ user.get_username }}!</h2>
+        
     <div>
-    <!--Hero-->    
-    {%block 'hero'%}
-    {%include 'hero.html'%}
-    {% endblock %}
-    
-    <!--Flanes-->
-    {% comment %} {% if not user.is_authenticated %}
-    <div>
-        <a href="{% url 'login' %}" class="btn btn-flans">
-            Inicia Sesion
-        </a>
-        <a href="{% url 'register' %}" class="btn btn-flans">
-            Registrate
-        </a>
-    </div>
-    {% endif %} {% endcomment %}
-<!--Preguntar al profesor-->
 
     <div class="container">
         <h1 class="mt-5">Flanes Públicos</h1>
@@ -64,6 +48,7 @@
     {%block 'suscribe'%}
     {%include 'suscribe.html' %}
     {% endblock %}
+    
     
     <!--Footer-->
     {%block 'footer'%}

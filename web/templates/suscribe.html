@@ -1,29 +1,11 @@
-    {%load static%}
-            <div class="row align-items-center g-lg-5 py-5">
-                <div class="col-lg-7 text-center text-lg-start">
-                <h1 class="display-4 fw-bold lh-1 text-body-emphasis mb-3">Hazte Miembro de OnlyFlans y disfruta de Flanes Premium Cada Mes</h1>
-                <p class="col-lg-10 fs-4">
-                    Los productos premium de OnlyFlans son una selección exclusiva de flanes elaborados con los ingredientes más finos y cuidadosamente seleccionados. Estos flanes están diseñados para satisfacer los paladares más exigentes y ofrecer una experiencia culinaria excepcional.</p>
-                </div>
-                <div class="col-md-10 mx-auto col-lg-5">
-                    <!--Formulario de suscripción-->
-                <form class="p-4 p-md-5 border rounded-3 bg-body-tertiary border-primary">
-                    <div class="form-floating mb-3">
-                    <input type="email" class="form-control border rounded-3 bg-body-tertiary border-primary" id="floatingInput" placeholder="name@example.com">
-                    <label for="floatingInput">Correo</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                    <input type="password" class="form-control border rounded-3 bg-body-tertiary border-primary" id="floatingPassword" placeholder="Password">
-                    <label for="floatingPassword">Password</label>
-                    </div>
-                    <div class="checkbox mb-3">
-                    <label>
-                        <input type="checkbox" value="remember-me"> Recuérdame
-                    </label>
-                    </div>
-                    <button class="w-100 btn btn-lg btn-primary" type="submit">Registrarse</button>
-                    <hr class="my-4">
-                    <!--<small class="text-body-secondary">By clicking Sign up, you agree to the terms of use.</small>-->
-                </form>
-                </div>
-            </div>
+<div class="bg-dark text-secondary px-1 py-5 text-center position-relative overflow-hidden">
+    <img src="/static/img/flanFrutosVino.jpg" class="position-absolute top-0 start-0 w-100 h-100 object-fit-cover" alt="flanChantilly" loading="lazy" style="opacity: 0.5;">
+    <div class="position-relative">
+        <h1 class="display-3 fw-bold text-light">Suscríbete</h1>
+        <div class="col-lg-6 mx-auto">
+            <p class="fs-5 mb-4 text-light">Nuestros clientes disfrutan de beneficios inigualables, envío gratis, sabores innovadores y regalos especiales durante todo el mes de su cumpleaños.</p>
+            <a href="{% url 'registration_view' %}">
+            <button type="submit" class="w-100 btn btn-primary btn-lg">Suscribirse</button>
+        </div>
+    </div>
+</div>

@@ -17,25 +17,24 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from web import views
-from web.views import index, about, welcome, contact, success, user_login
-
-
-
+#import jazzmin
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
-    path('', index, name='home'),
-    path('about/', about, name='about'),
-    path('welcome/', welcome, name='welcome'),
-    path('list/',views.lista_clientes,name='lista_clientes'),
-    path('flan/', views.lista_flanes, name='lista_flanes'),
-    path('contact/', contact, name='contact'),
-    path('success/', success, name='success'),
-    path('login/', user_login, name='login'),
+    path('admin/', admin.site.urls),
+    path('', views.index, name='home'),
+    path('about/', views.about, name='about'),
+    path('welcome/', views.welcome, name='welcome'),
+    path('client/', views.Client, name='client'),
+    path('flan/', views.flan_list, name='flan_list'),
+    path('contact/', views.contact, name='contact'),
+    path('success/', views.success, name='success'),
     path('accounts/', include('django.contrib.auth.urls')),
-    #path('login', login, name='login') #no va pq se ocupa el de accounts
-    
+    path('', include('web.urls')),
+    path('registration/', views.registration_view, name='registration_view'),
+    path('registration/', views.registration_view, name='registration_form'),
+    path('new_client/', views.new_client_view, name='new_client'),
+    path('welcome/', views.welcome, name='welcome'),
+    #path('admin/', include('jazzmin.urls')),  
 ]
-
 
 

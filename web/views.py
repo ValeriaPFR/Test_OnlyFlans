@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect, HttpResponse
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from .models import Flan, ContactForm
-from .forms import ContactFormForm, LoginForm, ClientForm
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import Group
+from .models import Flan, ContactForm
+from .forms import ContactFormForm, LoginForm, ClientForm
+
 from .models import Client
 
 def index(request):
@@ -42,10 +43,9 @@ def add_group_client(request, cliente_id):
     return HttpResponse("Cliente agregado al grupo exitosamente")
 #revisar
 def flan_list(request):
-    all_flan = models.Flan.objects.all() 
+    all_flan = Flan.objects.all() 
     context = {'Flan':all_flan}
     return render(request,'flan.html',context=context)
-
 
 def registration_view(request):
     if request.method == 'POST':
@@ -82,7 +82,6 @@ def user_login(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                # Redirige a la página adecuada después del inicio de sesión exitoso
                 return redirect('welcome')
     else:
         form = AuthenticationForm()
@@ -90,4 +89,4 @@ def user_login(request):
 
 def user_logout(request):
     logout(request)
-    return redirect('index')  # o cualquier otra página a la que quieras redirigir después del logout
+    return redirect('index')  

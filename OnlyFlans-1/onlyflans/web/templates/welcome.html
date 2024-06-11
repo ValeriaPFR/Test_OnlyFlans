@@ -14,7 +14,7 @@
         {% include 'navbar.html' %}
     {% endblock %}
     <div class="container">
-        {% comment %} <img src="{% static 'img/OnlyFlans.png' %}" alt="logo" width="15%"> {% endcomment %}
+        <img src="{% static 'img/OnlyFlans.png' %}" alt="logo" width="15%">
         {% if user.is_authenticated %}
         <h3 class="text-primary">¡Bienvenido/a {{ user.get_username }}!</h3>
         {% endif %}

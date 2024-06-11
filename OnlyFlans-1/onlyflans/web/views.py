@@ -7,6 +7,8 @@ from django.contrib.auth.models import Group
 from .models import Flan, ContactForm, Client
 from .forms import ContactFormForm, LoginForm, ClientFormForm #, FlanFormForm
 
+from .models import Client
+
 
 def index(request):
     flanes_publicos = Flan.objects.filter(is_private=False)
@@ -48,13 +50,19 @@ def flan_list(request):
 
 def registration_view(request):
     if request.method == 'POST':
-        form = ClientFormForm(request.POST)
+        form = ClientForm(request.POST)
         if form.is_valid():
-            form.save()  # Guarda los datos del formulario en el modelo Client
-            return redirect('new_client')  # Redirige a la página de confirmación o a donde sea necesario
+            Client.objects.create(**form.cleaned_data)
+            return redirect('welcome')  # Redirige a la página de bienvenida
     else:
-        form = ClientFormForm()
+        form = ClientForm()
     return render(request, 'registration_form.html', {'form': form})
+
+def new_client_view(request):
+    return render(request, 'registration/new_client.html')
+
+def welcome_view(request):
+    return render(request, 'welcome.html')
 
 def new_client_view(request):
     return render(request, 'registration/new_client.html')

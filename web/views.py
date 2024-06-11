@@ -4,10 +4,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import Group
-from .models import Flan, ContactForm
-from .forms import ContactFormForm, LoginForm, ClientForm
+from .models import Flan, ContactForm, Client
+from .forms import ContactFormForm, LoginForm, ClientFormForm #, FlanFormForm
 
-from .models import Client
 
 def index(request):
     flanes_publicos = Flan.objects.filter(is_private=False)
@@ -24,7 +23,7 @@ def welcome(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('welcome') 
+            return render(request, 'registration/new_client/welcome.html')
         else:
             messages.error(request, 'Nombre de usuario o contraseña incorrectos.')
             return render(request, 'index.html')
@@ -49,12 +48,12 @@ def flan_list(request):
 
 def registration_view(request):
     if request.method == 'POST':
-        form = ClientForm(request.POST)
+        form = ClientFormForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('new_client') 
+            form.save()  # Guarda los datos del formulario en el modelo Client
+            return redirect('new_client')  # Redirige a la página de confirmación o a donde sea necesario
     else:
-        form = ClientForm()
+        form = ClientFormForm()
     return render(request, 'registration_form.html', {'form': form})
 
 def new_client_view(request):
@@ -86,6 +85,18 @@ def user_login(request):
     else:
         form = AuthenticationForm()
     return render(request, 'welcome.html', {'form': form})
+
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('welcome')  # Redirigir a la página de bienvenida
+        else:
+            return render(request, 'login.html', {'error': 'Invalid credentials'})
+    return render(request, 'login.html')
 
 def user_logout(request):
     logout(request)

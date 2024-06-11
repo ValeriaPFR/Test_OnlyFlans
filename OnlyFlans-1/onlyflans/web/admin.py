@@ -1,13 +1,13 @@
 from django.contrib import admin
 from .models import Client, Flan, ContactForm
-from .models import ContactForm
-
 # Register your models here.
 
 
 @admin.register(Client)
 class ClientAdmin(admin.ModelAdmin):
-    list_display = ('name', 'lastname', 'email', 'age', 'subject', 'message', 'birth_date', 'address', 'created_at', 'updated_at')
+    list_display = ('name', 'lastname', 'email', 'age', 'birth_date', 'address', 'created_at', 'updated_at')
+    search_fields = ('name', 'lastname', 'email')
+    readonly_fields = ('created_at', 'updated_at')
 
 
 @admin.register(Flan)# o admin.site.register(Flan) 

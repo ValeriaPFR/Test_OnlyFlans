@@ -21,12 +21,6 @@
     {%include 'navbar.html'%}
     {% endblock %}
 
-    <div class="container">
-        <img src="{% static 'img/OnlyFlans.png'%}" alt="logo" width="18%">
-        <h2 class="text-primary">¡Bienvenido/a {{ user.get_username }}!</h2>
-        
-    <div>
-
         <div class="container">
             <h1 class="mt-5">Flanes Públicos</h1>
             <div class="row">
@@ -41,7 +35,29 @@
                         <div class="card-footer d-flex justify-content-center">
                             <a href="#" class="btn btn-primary">
                                 <img src="{% static 'img/carrito.png' %}" alt="carrito" width="20" height="20">
-                                ¡Compra Ahora!
+                                Agregar a carrito
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <br>
+        <div class="container">
+            <div class="row">
+                {% for flan in lista_flanes %}
+                <div class="col-sm-3 mb-3">
+                    <div class="card h-100">
+                        <img class="card-img-top" src="{{ flan.img_url }}" alt="{{ flan.name }}" style="object-fit: cover; height: 200px;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ flan.name }}</h5>
+                            <p class="card-text">{{ flan.description }}</p>
+                        </div>
+                        <div class="card-footer d-flex justify-content-center">
+                            <a href="#" class="btn btn-primary">
+                                <img src="{% static 'img/carrito.png' %}" alt="carrito" width="20" height="20">
+                                Agregar a carrito
                             </a>
                         </div>
                     </div>
@@ -50,12 +66,13 @@
             </div>
         </div>
         
-        
 
     {%block 'suscribe'%}
     {%include 'suscribe.html' %}
     {% endblock %}
-    
+
+    <br>
+
     
     <!--Footer-->
     {%block 'footer'%}

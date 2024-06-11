@@ -32,9 +32,10 @@ urlpatterns = [
     path('', include('web.urls')),
     path('registration/', views.registration_view, name='registration_view'),
     path('registration/', views.registration_view, name='registration_form'),
-    path('new_client/', views.new_client_view, name='new_client'),
-    path('welcome/', views.welcome, name='welcome'),
-    #path('admin/', include('jazzmin.urls')),  
+    path('registration/new_client/', views.new_client_view, name='new_client'),
+    path('registration/new_client/welcome', views.welcome, name='welcome'),
+    path('accounts/login/?next=/registration/new_client/welcome', views.welcome, name='welcome'),
+    #path('admin/', include('jazzmin.urls')),
 ]
 
 

@@ -8,33 +8,51 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'index' %}">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'about' %}">About</a>
-                        </li>
-                    {% if user.is_authenticated %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'welcome' %}">Welcome</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-                        </li>
-                        {% else %}
-                        <ul class="navbar-nav">
-                            <li class="nav-item me-auto">
-                                
-                                    <img src="{% static 'img/login.png' %}" alt="Login" width="30">
-                                </a>
-                            </li>
-                        </ul>
-                    {% endif %}
-                </ul>
+                <div class="btn-toolbar w-100" role="toolbar" aria-label="Toolbar with button groups">
+                    <div class="btn-group btn-group-custom me-2" role="group" aria-label="First group">
+                        <a class="btn btn-primary" href="{% url 'index' %}">Home</a>
+                        <a class="btn btn-primary" href="{% url 'welcome' %}">Welcome</a>
+                        <a class="btn btn-primary" href="{% url 'about' %}">About</a>
+                    </div>
+                    <div class="btn-group btn-group-custom me-2" role="group" aria-label="Second group">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
+                        <button type="button" class="btn btn-secondary">Logout</button>
+                    </div>
+                    <div class="btn-group btn-group-custom" role="group" aria-label="Third group">
+                        <button type="button" class="btn btn-info">Admin</button>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginModalLabel">Iniciar Sesión</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Correo Electrónico</label>
+                        <input type="email" class="form-control" id="email" aria-describedby="emailHelp" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Contraseña</label>
+                        <input type="password" class="form-control" id="password" required>
+                    </div>
+                    <div class="d-grid">
+                        <a href="{% url 'welcome' %}">
+                        <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 

@@ -7,12 +7,16 @@ from django.contrib.auth.models import Group
 from .models import Flan, ContactForm, Client
 from .forms import ContactFormForm, LoginForm, ClientFormForm #, FlanFormForm
 
-from .models import Client
 
 
 def index(request):
     flanes_publicos = Flan.objects.filter(is_private=False)
     return render(request, 'index.html', {'lista_flanes': flanes_publicos}) # Flanes publicos-Index
+
+def flan_list(request):
+    all_flan = Flan.objects.all() 
+    context = {'Flan':all_flan}
+    return render(request,'flan.html',context=context)
 
 def about(request):
     return render(request, 'about.html', {})
@@ -42,11 +46,6 @@ def add_group_client(request, cliente_id):
     client.groups.add(group)
     
     return HttpResponse("Cliente agregado al grupo exitosamente")
-#revisar
-def flan_list(request):
-    all_flan = Flan.objects.all() 
-    context = {'Flan':all_flan}
-    return render(request,'flan.html',context=context)
 
 def registration_view(request):
     if request.method == 'POST':
@@ -58,13 +57,11 @@ def registration_view(request):
         form = ClientForm()
     return render(request, 'registration_form.html', {'form': form})
 
-def new_client_view(request):
-    return render(request, 'registration/new_client.html')
 
-def welcome_view(request):
-    return render(request, 'welcome.html')
+# def welcome_view(request):
+#     return render(request, 'welcome.html')
 
-def new_client_view(request):
+def new_client(request):
     return render(request, 'registration/new_client.html')
 
 def contact(request):

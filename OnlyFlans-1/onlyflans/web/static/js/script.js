@@ -36,5 +36,19 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     });
 });
+//Funcionamiento del modal de login en el navbar
+$(document).ready(function () {
+    $('form').on('submit', function (e) {
+        e.preventDefault();
+        var email = $('#email').val();
+        var password = $('#password').val();
 
-
+        if (email && password) {
+            // Aquí puedes agregar la lógica para el envío del formulario
+            alert('Formulario enviado');
+            $('#loginModal').modal('hide');
+        } else {
+            alert('Por favor, complete todos los campos');
+        }
+    });
+});

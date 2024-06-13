@@ -14,28 +14,34 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+#Rutas generales del proyecto OnlyFlans
 from django.contrib import admin
 from django.urls import path, include
 from web import views
-#import jazzmin
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('web.urls')),
     path('', views.index, name='home'),
     path('about/', views.about, name='about'),
-    path('welcome/', views.welcome, name='welcome'),
-    path('client/', views.Client, name='client'),
+    # Flanes
     path('flan/', views.flan_list, name='flan_list'),
+    # Welcome
+    path('welcome/', views.welcome, name='welcome'),
+    path('registration/new_client/welcome', views.welcome, name='welcome'),
+    path('accounts/login/?next=/registration/new_client/welcome', views.welcome, name='welcome'),
+    #Formulario de contacto
     path('contact/', views.contact, name='contact'),
     path('success/', views.success, name='success'),
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('', include('web.urls')),
+    #Registro de clientes
     path('registration/', views.registration_view, name='registration_view'),
     path('registration/', views.registration_view, name='registration_form'),
     path('registration/new_client/', views.new_client, name='new_client'),
-    path('registration/new_client/welcome', views.welcome, name='welcome'),
-    path('accounts/login/?next=/registration/new_client/welcome', views.welcome, name='welcome'),
-    #path('admin/', include('jazzmin.urls')),
+    #Clientes
+    path('client/', views.Client, name='client'),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('login/', views.login, name='login'),
+    path('logout/', views.user_login, name='logout'),
 ]
 
 

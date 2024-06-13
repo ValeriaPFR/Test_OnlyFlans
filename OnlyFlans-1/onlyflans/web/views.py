@@ -86,12 +86,13 @@ def user_login(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('welcome')
-    else:
-        form = AuthenticationForm()
-    return render(request, 'welcome.html', {'form': form})
+            return redirect('welcome')
+        else:
+            messages.error(request, 'Credenciales inválidas. Inténtalo de nuevo.')
+            return redirect('registration/login.html')  # Redirigir al modal de login en caso de error
+    return render(request, 'login.html')
 
-def login_view(request):
+def login(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -100,9 +101,9 @@ def login_view(request):
             login(request, user)
             return redirect('welcome')  # Redirigir a la página de bienvenida
         else:
-            return render(request, 'login.html', {'error': 'Invalid credentials'})
+            return render(request, 'registration/failed_login.html', {'error': 'Invalid credentials'})
     return render(request, 'login.html')
 
-def user_logout(request):
+def logout(request):
     logout(request)
     return redirect('index')  

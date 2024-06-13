@@ -1,3 +1,30 @@
+/* Botones del navbar*/
+
+.navbar-brand {
+    float: left; /* Alinear el logo a la izquierda */
+    margin-right: 10px; /* Margen derecho para separar de los botones */
+}
+
+.navbar-nav {
+    float: right; /* Alinear los botones a la derecha */
+}
+
+.btn-toolbar {
+    width: 100%; /* Asegura que la barra de botones ocupe todo el ancho disponible */
+    text-align: right; /* Alinea los botones hacia la derecha */
+}
+
+.btn-group {
+    display: inline-block; /* Para que los botones dentro de cada grupo estén en una línea */
+    margin-left: 5px; /* Espacio entre botones dentro de un grupo */
+}
+/* >* asegura que los botones dentro de cada grupo estén 'display: inline-block'*/
+.btn-group > * {
+    display: inline-block; /* Asegura que cada botón esté en una línea */
+    margin-left: 5px; /* Espacio entre botones */
+} 
+
+
 /* Carrusel del about*/
 .background-image {
     position: absolute;
